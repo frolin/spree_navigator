@@ -1,6 +1,6 @@
 # Spree Navigator
 
-Theme for Spree. **Not ready for production**
+Customizable navigation menu for Spree. **Not ready for production**
 
 
 ## Installation
