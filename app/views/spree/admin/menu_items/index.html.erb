@@ -1,0 +1,25 @@
+<%= render partial: 'spree/admin/shared/configuration_menu' %>
+
+<% content_for :page_title do %>
+  <%= Spree.t('navigator.admin.title.index') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li><%= link_to_with_icon 'plus', Spree.t('navigator.admin.button.new'), new_admin_menu_item_path, class: 'button' %></li>
+<% end %>
+
+<% if @menu_items.any? %>
+  <div id="list-menu-items" data-hook>
+    <% @menu_items.each do |item| %>
+    <div>
+      <%= link_to_edit(item, { no_text: true, url: edit_admin_menu_item_path(item.id) }) %>
+      <%= link_to_delete(item, { no_text: true, url: admin_menu_item_path(item.id) }) %>
+    </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t('navigator.admin.no_resource_found') %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_menu_item_path %>!
+  </div>
+<% end %>

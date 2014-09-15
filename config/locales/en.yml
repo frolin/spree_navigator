@@ -1,4 +1,32 @@
 ---
 en:
   spree:
-    navigator: Blah
+    navigator:
+      admin:
+        no_resource_found: No menu items found
+        sidebar: Navigation Manager
+        button:
+          back: Back to Menu Items
+          new: New Menu Item
+        title:
+          index: Navigation Manager
+          new: New Menu Item
+          edit: 'Edit `%{name}` Menu Item'
+        fieldset:
+          legend:
+            new: New Menu Item
+            edit: Update Menu Item
+        label: &labels
+          name: Label
+          url: Path/URL
+          target: Target
+        flash:
+          success:
+            create: Menu item has been created.
+            update: Menu item has been updated.
+            destroy: Menu item has been removed.
+
+  activerecord:
+    models:
+      spree/taxonomy:
+        <<: *labels

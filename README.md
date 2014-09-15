@@ -1,6 +1,10 @@
 # Spree Navigator
 
-Customizable navigation menu for Spree. **Not ready for production**
+Customizable navigation menu for Spree. Works well with multi-tenant sites or applications where overwriting the view file where the menu lives is not an option.
+
+Sure you can overwrite the `views/spree/shared/_main_nav_bar.html.erb` file in your application to add your own menu items. But what fun would that be?
+
+> Still under development. Not ready for production
 
 
 ## Installation
@@ -13,9 +17,14 @@ Run the bundle command to install it:
 
     bundle install
 
-After installing, you'll need to run the generator:
+After installing, run the generator:
 
     bundle exec rails g spree_navigator:install
+
+
+## Menu Items
+
+TODO
 
 
 ## Testing

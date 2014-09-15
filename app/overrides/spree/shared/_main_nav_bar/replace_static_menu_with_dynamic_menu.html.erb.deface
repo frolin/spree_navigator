@@ -1,0 +1,9 @@
+<!-- replace_contents '#main-nav-bar' -->
+<%= navigator_item(nil) %>
+<%= navigator_item(nil) %>
+<li id="link-to-cart" data-hook>
+  <noscript>
+    <%= link_to Spree.t(:cart), '/cart' %>
+  </noscript>
+</li>
+<script>Spree.fetch_cart();</script>
