@@ -34,8 +34,12 @@ describe Spree::Admin::MenuItemsController do
 
     it 'updates menu item' do
       spree_post :update, id: menu_item.id, menu_item: valid_item
+      resource_desc = menu_item.class.model_name.human
+      if menu_item.respond_to?(:name) && menu_item.name.present?
+        resource_desc += " \"#{valid_item[:name]}\""
+      end
       expect(flash[:success]).to(
-        eq Spree.t('navigator.admin.flash.success.update')
+        eq Spree.t(:successfully_updated, resource: resource_desc)
       )
       expect(response).to redirect_to(index_path)
     end

@@ -1,6 +1,13 @@
 <!-- replace_contents '#main-nav-bar' -->
-<%= navigator_item(nil) %>
-<%= navigator_item(nil) %>
+<% menu_items = Spree::MenuItem.all %>
+<% if menu_items.any? %>
+  <% menu_items.each do |item| %>
+  <%= navigator_item(item) %>
+  <% end %>
+<% else %>
+  <%= content_tag(:li, link_to(Spree.t(:home), spree.root_path)) %>
+<% end %>
+
 <li id="link-to-cart" data-hook>
   <noscript>
     <%= link_to Spree.t(:cart), '/cart' %>

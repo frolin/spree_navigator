@@ -8,6 +8,10 @@ en:
         button:
           back: Back to Menu Items
           new: New Menu Item
+        table:
+          header:
+            name: Name
+            url: URL/Path
         title:
           index: Navigation Manager
           new: New Menu Item
