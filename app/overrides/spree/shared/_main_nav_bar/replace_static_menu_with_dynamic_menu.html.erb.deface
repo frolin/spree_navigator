@@ -5,7 +5,7 @@
   <%= navigator_item(item) %>
   <% end %>
 <% else %>
-  <%= content_tag(:li, link_to(Spree.t(:home), spree.root_path)) %>
+  <%= navigator_home_item %>
 <% end %>
 
 <li id="link-to-cart" data-hook>

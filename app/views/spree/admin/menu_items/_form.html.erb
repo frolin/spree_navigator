@@ -17,8 +17,18 @@
     </div>
 
     <div class="field">
-      <%= f.label :target, Spree.t('navigator.admin.label.target') %>
-      <%= f.text_field :target, class: 'fullwidth' %>
+      <%= f.label :item_id, Spree.t('navigator.admin.label.id') %>
+      <%= f.text_field :item_id, class: 'fullwidth' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :item_class, Spree.t('navigator.admin.label.class') %>
+      <%= f.text_field :item_class, class: 'fullwidth' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :item_target, Spree.t('navigator.admin.label.target') %>
+      <%= f.text_field :item_target, class: 'fullwidth' %>
     </div>
   </div>
 

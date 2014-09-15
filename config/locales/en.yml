@@ -23,6 +23,8 @@ en:
         label: &labels
           name: Label
           url: Path/URL
+          id: ID
+          class: Class
           target: Target
         flash:
           success:
