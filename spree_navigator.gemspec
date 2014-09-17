@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.requirements << 'none'
 
   spec.add_dependency 'spree_core', '~> 2.3.0'
+  spec.add_dependency 'simple-navigation', '~> 3.11.0'
 
   spec.add_development_dependency 'sass-rails'
   spec.add_development_dependency 'coffee-rails'

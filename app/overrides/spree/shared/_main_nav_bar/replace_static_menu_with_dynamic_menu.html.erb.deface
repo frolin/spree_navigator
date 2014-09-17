@@ -1,16 +1,6 @@
-<!-- replace_contents '#main-nav-bar' -->
-<% menu_items = Spree::MenuItem.all %>
-<% if menu_items.any? %>
-  <% menu_items.each do |item| %>
-  <%= navigator_item(item) %>
-  <% end %>
-<% else %>
-  <%= navigator_home_item %>
-<% end %>
-
-<li id="link-to-cart" data-hook>
-  <noscript>
-    <%= link_to Spree.t(:cart), '/cart' %>
-  </noscript>
-</li>
-<script>Spree.fetch_cart();</script>
+<!-- replace '#home-link' -->
+<%= render_navigation(context: :navigator,
+                      items: navigator_menu,
+                      skip_if_empty: true,
+                      expand_all: true,
+                      renderer: Navigator::Renderer::List) %>

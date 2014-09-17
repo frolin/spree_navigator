@@ -1,6 +1,10 @@
 module SpreeNavigator
   class Engine < ::Rails::Engine
     require 'spree/core'
+    require 'simple-navigation'
+    SimpleNavigation.config_file_paths <<
+      File.expand_path('../../../config', __FILE__)
+
     isolate_namespace Spree
     engine_name 'spree_navigator'
 

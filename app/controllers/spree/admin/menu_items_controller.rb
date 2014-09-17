@@ -1,8 +1,8 @@
 module Spree
   module Admin
     class MenuItemsController < ResourceController
-      def show
-        redirect_to(action: :edit)
+      def index
+        @menu_items = Spree::MenuItem.top_level
       end
 
       # def update_positions
