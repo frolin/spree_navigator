@@ -1,10 +1,8 @@
 module Navigator
   module Renderer
     class List < SimpleNavigation::Renderer::Base
-      @@top_level = true
-
       def render(item_container)
-        if @@top_level
+        if item_container.level == 1
           render_top_level(item_container)
         else
           render_sub_level(item_container)
@@ -14,7 +12,6 @@ module Navigator
       protected
 
       def render_top_level(item_container)
-        @@top_level = false
         list_content(item_container).html_safe
       end
 
