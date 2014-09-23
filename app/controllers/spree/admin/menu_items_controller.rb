@@ -42,7 +42,7 @@ module Spree
       def update
         respond_to do |format|
           if @menu_item.update(menu_item_params)
-            organize_items if request.xhr?
+            organize_items
             format.html {
               scope = 'navigator.admin.flash.success'
               redirect_to admin_menu_items_path, flash: {
@@ -86,7 +86,8 @@ module Spree
 
         def permitted_menu_item_attributes
           [
-            :name, :url,
+            :name,
+            :url,
             :item_id,
             :item_class,
             :item_target,

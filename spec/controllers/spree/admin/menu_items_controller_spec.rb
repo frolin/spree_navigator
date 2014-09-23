@@ -7,13 +7,19 @@ describe Spree::Admin::MenuItemsController do
 
   let(:index_path) { spree.admin_menu_items_path }
 
-  let(:valid_item)   { { name: Faker::Lorem.word } }
-  let(:invalid_item) { { name: '' } }
+  let(:valid_item)        { { name: Faker::Lorem.word } }
+  let(:invalid_item)      { { name: '' } }
+  let(:valid_item_parent) { { name: Faker::Lorem.word, parent_id: 'menu_tree' } }
 
   context '#index' do
-    it 'loads `index` template' do
+    it 'loads `index` template (HTML)' do
       spree_get :index
       expect(response).to render_template(:index)
+    end
+
+    it 'loads JSON data (AJAX)' do
+      spree_xhr_get :index
+      expect(response).to render_template(:children)
     end
   end
 
@@ -26,18 +32,33 @@ describe Spree::Admin::MenuItemsController do
 
   context '#create' do
     context 'fails with invalid values' do
-      it 'then renders `new` template' do
+      it 'then renders `new` template for HTML' do
         spree_post :create, menu_item: invalid_item
         expect(response).to render_template(:new)
       end
+
+      it 'then renders json template for AJAX' do
+        spree_xhr_post :create, menu_item: invalid_item
+        expect(response.body).to eq('{"name":["can\'t be blank"]}')
+        expect(response.code).to eq '422'
+        expect(response.header['Content-Type']).to match /json/
+      end
     end
 
-    it 'creates menu item' do
-      spree_post :create, menu_item: valid_item
-      expect(flash[:success]).to eq(
-        Spree.t('navigator.admin.flash.success.create', name: valid_item[:name])
-      )
-      expect(response).to redirect_to(index_path)
+    context 'creates menu item' do
+      it 'with HTML' do
+        spree_post :create, menu_item: valid_item
+        expect(flash[:success]).to eq(
+          Spree.t('navigator.admin.flash.success.create', name: valid_item[:name])
+        )
+        expect(response).to redirect_to(index_path)
+      end
+
+      it 'with AJAX' do
+        spree_xhr_post :create, menu_item: valid_item_parent
+        expect(response.code).to eq '201'
+        expect(response.header['Content-Type']).to match /json/
+      end
     end
   end
 
@@ -54,14 +75,37 @@ describe Spree::Admin::MenuItemsController do
         spree_post :update, id: menu_item.id, menu_item: invalid_item
         expect(response).to render_template(:edit)
       end
+
+      it 'then renders json template for AJAX' do
+        spree_xhr_post :update, id: menu_item.id, menu_item: invalid_item
+        expect(response.body).to eq('{"name":["can\'t be blank"]}')
+        expect(response.code).to eq '422'
+        expect(response.header['Content-Type']).to match /json/
+      end
     end
 
-    it 'updates menu item' do
-      spree_post :update, id: menu_item.id, menu_item: valid_item
-      expect(flash[:success]).to eq(
-        Spree.t('navigator.admin.flash.success.update', name: valid_item[:name])
-      )
-      expect(response).to redirect_to(index_path)
+    context 'updates menu item' do
+      it 'with HTML' do
+        spree_post :update, id: menu_item.id, menu_item: valid_item
+        expect(flash[:success]).to eq(
+          Spree.t('navigator.admin.flash.success.update', name: valid_item[:name])
+        )
+        expect(response).to redirect_to(index_path)
+      end
+
+      it 'with AJAX' do
+        spree_xhr_post :update, id: menu_item.id, menu_item: valid_item
+        expect(response.code).to eq '201'
+        expect(response.header['Content-Type']).to match /json/
+      end
+
+      # jsTree passes `menu_tree` for top level item. Those get converted
+      # to `nil` in `MenuItemsController.menu_item_params`
+      it 'with AJAX and `menu_tree` as parent_id' do
+        spree_xhr_post :update, id: menu_item.id, menu_item: valid_item
+        expect(response.code).to eq '201'
+        expect(response.header['Content-Type']).to match /json/
+      end
     end
   end
 
@@ -76,8 +120,8 @@ describe Spree::Admin::MenuItemsController do
   end
 
   context '#children' do
-    xit 'loads children JSON' do
-      spree_get :index, id: menu_item.id, format: :json
+    it 'loads children JSON' do
+      spree_xhr_get :children, id: menu_item.id
       expect(response).to render_template(:children)
     end
   end
