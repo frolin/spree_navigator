@@ -45,10 +45,10 @@ module Spree
           url:     item.url,
           options: {
             id:    item.item_id || "menu_item_#{item.id}",
-            class: "menu-item #{item.item_class || "menu-item-#{item.id}"}"
-          },
-          link: {
-            target: item.item_target || nil
+            class: "menu-item #{item.item_class || "menu-item-#{item.id}"}",
+            link:  {
+              target: item.item_target || nil
+            }
           }
         }
       end

@@ -1,4 +1,3 @@
-- Link targets aren't working. I broke them when I made the custom renderer (Doh!)
 - Clean up, Rubocop
 - The Javascript is terrible. Clean it up
 - The CSS is terrible. Clean it up
