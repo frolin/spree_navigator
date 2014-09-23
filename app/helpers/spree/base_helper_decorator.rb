@@ -12,14 +12,11 @@ module Spree
     protected
 
       def navigator_levels(menu_items)
-        items = []
-        menu_items.each do |menu_item|
+        menu_items.each_with_object([]) { |menu_item, items|
           item = navigator_item(menu_item)
 
           if menu_item.parent_id.present?
-            item[:options] = {
-              container_class: "menu-children"
-            }
+            item[:options] = { container_class: 'menu-children' }
           end
 
           if menu_item.children.any?
@@ -27,16 +24,16 @@ module Spree
           end
 
           items << item
-        end
-        items
+        }
       end
 
       def navigator_default
         [
           navigator_item(Spree::MenuItem.new(
-            id:   0,
-            name: Spree.t(:home),
-            url:  '/'
+            id:      0,
+            name:    Spree.t(:home),
+            url:     spree.root_path,
+            item_id: 'home-link'
           ))
         ]
       end
@@ -47,13 +44,11 @@ module Spree
           name:    item.name,
           url:     item.url,
           options: {
-            id:    "menu_item_#{item.id}",
-            class: "menu-item menu-item-#{item.id}"
+            id:    item.item_id || "menu_item_#{item.id}",
+            class: "menu-item #{item.item_class || "menu-item-#{item.id}"}"
           },
           link: {
-            target: item.item_target || nil,
-            class:  item.item_class || nil,
-            id:     item.item_id || nil
+            target: item.item_target || nil
           }
         }
       end

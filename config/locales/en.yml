@@ -5,6 +5,10 @@ en:
       admin:
         no_resource_found: No menu items found
         sidebar: Navigation Manager
+        ajax:
+          new_menu: New Menu Item
+          menu_tree_error: The requested change has not been accepted and the tree has been returned to its previous state, please try again.
+          instructions: '* Right click an item to access the menu for adding, editing, deleting and renaming. Drag an item around to sort it.'
         button:
           back: Back to Menu Items
           new: New Menu Item
@@ -28,11 +32,11 @@ en:
           target: Target
         flash:
           success:
-            create: Menu item has been created.
-            update: Menu item has been updated.
+            create: 'Menu item `%{name}` has been successfully created!'
+            update: 'Menu item `%{name}` has been successfully updated!'
             destroy: Menu item has been removed.
 
   activerecord:
     models:
-      spree/taxonomy:
+      spree/navigator:
         <<: *labels

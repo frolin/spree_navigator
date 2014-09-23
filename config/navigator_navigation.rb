@@ -1,4 +1,7 @@
 SimpleNavigation::Configuration.run do |navigation|
+  # Use the spree_navigator custom renderer
+  navigation.renderer = Navigator::Renderer::List
+
   # Class to be applied to active navigation items
   navigation.selected_class = 'selected'
 

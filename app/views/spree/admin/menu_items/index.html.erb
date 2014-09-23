@@ -9,23 +9,7 @@
 <% end %>
 
 <% if @menu_items.any? %>
-  <table class="index sortable" id="listing_menu_items" data-hook>
-    <colgroup>
-      <col style="width: 45%">
-      <col style="width: 40%">
-      <col style="width: 15%">
-    </colgroup>
-    <thead>
-      <tr data-hook="admin_menu_items_index_headers">
-        <th><%= Spree.t('navigator.admin.table.header.name') %></th>
-        <th><%= Spree.t('navigator.admin.table.header.url') %></th>
-        <th data-hook="admin_menu_items_index_header_actions" class="actions"></th>
-      </tr>
-    </thead>
-    <tbody data-hook="admin_menu_items_index_rows">
-      <%= render partial: 'spree/admin/menu_items/list', locals: { items: @menu_items, is_child: false } %>
-    </tbody>
-  </table>
+  <%= render partial: 'spree/admin/menu_items/tree' %>
 <% else %>
   <div class="alpha twelve columns no-objects-found">
     <%= Spree.t('navigator.admin.no_resource_found') %>,
