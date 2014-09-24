@@ -19,10 +19,6 @@ module Navigator
             expect(subject).to have_css(element_first_target)
           end
 
-          it 'with the second item not having a target' do
-            expect(subject).to_not have_css(element_last_target)
-          end
-
           it 'with the first item not selected' do
             expect(subject).to_not have_css(element_first_selected)
           end
@@ -31,11 +27,15 @@ module Navigator
             expect(subject).to_not have_css(element_first_sub)
           end
 
+          it 'with the second item not having a target' do
+            expect(subject).to_not have_css(element_last_target)
+          end
+
           it 'with the second item having sub levels' do
             expect(subject).to have_css(element_last_sub)
           end
 
-          it 'with the first item not selected' do
+          it 'with the second item selected' do
             expect(subject).to have_css(element_last_selected)
           end
         end
@@ -45,6 +45,11 @@ module Navigator
         setup_adapter
         container = SimpleNavigation::ItemContainer.new(1)
         setup_items(container)
+
+        container.items
+                 .find { |item| item.key == :info }
+                 .stub(selected?: true, selected_by_condition?: true)
+
         container.render(context: :navigator,
                          skip_if_empty: true,
                          expand_all: true)
@@ -61,29 +66,14 @@ module Navigator
       end
 
       def setup_items(container)
-        container.item :news,
-                       'News',
-                       '/news',
-                       id: 'news_item',
-                       class: 'menu-item menu-item-1',
+        container.item :news, 'News', '/news',
                        link: { target: '_blank' }
-
-        container.item :info,
-                       'Info',
-                       '/info',
-                       id: 'menu_item_2',
-                       class: 'menu-item menu-item-2',
+        container.item :info, 'Info', '/info',
                        container_class: 'menu-children' do |info_nav|
                          info_nav.item :main_info_page,
                                        'Main',
-                                       '/main',
-                                       id: 'menu_item_3',
-                                       class: 'menu-item menu-item-3'
+                                       '/main'
                        end
-
-        container.items.find do |item|
-          item.key == :info
-        end.stub(selected?: true, selected_by_condition?: true)
       end
     end
   end

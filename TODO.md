@@ -1,3 +1,2 @@
-- Clean up, Rubocop
 - The Javascript is terrible. Clean it up
 - The CSS is terrible. Clean it up

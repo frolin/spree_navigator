@@ -17,21 +17,13 @@ module Spree
 
       def create
         @menu_item = Spree::MenuItem.new(menu_item_params)
-
         respond_to do |format|
           if @menu_item.save
-            format.html do
-              scope = 'navigator.admin.flash.success'
-              redirect_to admin_menu_items_path, flash: {
-                success: Spree.t(:create, name: @menu_item.name, scope: scope)
-              }
-            end
+            format.html { submit_success_redirect(:create) }
             format.json { render :show, status: :created }
           else
             format.html { render :new }
-            format.json do
-              render json: @menu_item.errors, status: :unprocessable_entity
-            end
+            format.json { render_json_error }
           end
         end
       end
@@ -43,18 +35,11 @@ module Spree
         respond_to do |format|
           if @menu_item.update(menu_item_params)
             organize_items
-            format.html do
-              scope = 'navigator.admin.flash.success'
-              redirect_to admin_menu_items_path, flash: {
-                success: Spree.t(:update, name: @menu_item.name, scope: scope)
-              }
-            end
+            format.html { submit_success_redirect(:update) }
             format.json { render :show, status: :created }
           else
             format.html { render :edit }
-            format.json do
-              render json: @menu_item.errors, status: :unprocessable_entity
-            end
+            format.json { render_json_error }
           end
         end
       end
@@ -79,6 +64,17 @@ module Spree
       end
 
       protected
+
+      def submit_success_redirect(type)
+        scope = 'navigator.admin.flash.success'
+        redirect_to admin_menu_items_path, flash: {
+          success: Spree.t(type, name: @menu_item.name, scope: scope)
+        }
+      end
+
+      def render_json_error
+        render json: @menu_item.errors, status: :unprocessable_entity
+      end
 
       def set_menu_item
         @menu_item = Spree::MenuItem.find(params[:id])
@@ -105,8 +101,9 @@ module Spree
 
       def organize_items
         items = Spree::MenuItem.where(parent_id: menu_item_params[:parent_id])
-                        .order(updated_at: :desc)
-                        .map(&:id)
+                      .where('position >= ?', menu_item_params[:position])
+                      .order(updated_at: :desc)
+                      .map(&:id)
         items.each_with_index do |id, index|
           Spree::MenuItem.find(id).update_attributes(position: index)
         end
