@@ -42,48 +42,48 @@ module Navigator
       end
 
       def render_result
-        setup_adapter_for :rails
+        setup_adapter
         container = SimpleNavigation::ItemContainer.new(1)
         setup_items(container)
-        container.render(skip_if_empty: true, expand_all: true)
+        container.render(context: :navigator,
+                         skip_if_empty: true,
+                         expand_all: true)
       end
 
-      def setup_adapter_for(framework)
+      def setup_adapter
         context = double(:context, view_context: ActionView::Base.new)
         adapter = SimpleNavigation::Adapters::Rails.new(context)
 
-        SimpleNavigation::Configuration.instance do |config|
-          config.renderer = Navigator::Renderer::List
-        end
-
         SimpleNavigation.stub(adapter: adapter)
 
-        SimpleNavigation::Item.any_instance.stub(selected?:              false,
-                                                 selected_by_condition?: false )
+        SimpleNavigation::Item.any_instance.stub(selected?: false,
+                                                 selected_by_condition?: false)
       end
 
       def setup_items(container)
-        container.item :news, 'News', '/news', {
-          id:    'news_item',
-          class: 'menu-item menu-item-1',
-          link:  {
-            target: '_blank'
-          }
-        }
-        container.item :info, 'Info', '/info', {
-          id:              'menu_item_2',
-          class:           'menu-item menu-item-2',
-          container_class: 'menu-children'
-          } do |info_nav|
-          info_nav.item :main_info_page, "Main info page", '/info/main', {
-            id:    'menu_item_3',
-            class: 'menu-item menu-item-3'
-          }
-        end
+        container.item :news,
+                       'News',
+                       '/news',
+                       id: 'news_item',
+                       class: 'menu-item menu-item-1',
+                       link: { target: '_blank' }
 
-        container.items.find { |item|
+        container.item :info,
+                       'Info',
+                       '/info',
+                       id: 'menu_item_2',
+                       class: 'menu-item menu-item-2',
+                       container_class: 'menu-children' do |info_nav|
+                         info_nav.item :main_info_page,
+                                       'Main',
+                                       '/main',
+                                       id: 'menu_item_3',
+                                       class: 'menu-item menu-item-3'
+                       end
+
+        container.items.find do |item|
           item.key == :info
-        }.stub( selected?: true, selected_by_condition?: true )
+        end.stub(selected?: true, selected_by_condition?: true)
       end
     end
   end

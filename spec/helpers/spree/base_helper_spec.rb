@@ -11,7 +11,7 @@ describe Spree::BaseHelper do
     let!(:menu_item)  { create(:menu_item) }
 
     it 'builds individual object' do
-      expect(helper.navigator_menu).to eq [ helper.navigator_item(menu_item) ]
+      expect(helper.navigator_menu).to eq [helper.navigator_item(menu_item)]
     end
   end
 
@@ -22,7 +22,7 @@ describe Spree::BaseHelper do
 
     it 'builds navigation object' do
       menu_item = create(:menu_item)
-      expect(helper.navigator_menu).to eq [ helper.navigator_item(menu_item) ]
+      expect(helper.navigator_menu).to eq [helper.navigator_item(menu_item)]
     end
   end
 

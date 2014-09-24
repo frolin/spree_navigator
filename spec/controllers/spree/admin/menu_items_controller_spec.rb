@@ -7,9 +7,10 @@ describe Spree::Admin::MenuItemsController do
 
   let(:index_path) { spree.admin_menu_items_path }
 
-  let(:valid_item)        { { name: Faker::Lorem.word } }
-  let(:invalid_item)      { { name: '' } }
-  let(:valid_item_parent) { { name: Faker::Lorem.word, parent_id: 'menu_tree' } }
+  let(:valid_item)     { { name: Faker::Lorem.word } }
+  let(:invalid_item)   { { name: '' } }
+  let(:valid_item_top) { { name: Faker::Lorem.word, parent_id: 'menu_tree' } }
+  let(:scope)          { 'navigator.admin.flash.success' }
 
   context '#index' do
     it 'loads `index` template (HTML)' do
@@ -41,7 +42,7 @@ describe Spree::Admin::MenuItemsController do
         spree_xhr_post :create, menu_item: invalid_item
         expect(response.body).to eq('{"name":["can\'t be blank"]}')
         expect(response.code).to eq '422'
-        expect(response.header['Content-Type']).to match /json/
+        expect(response.header['Content-Type']).to match(/json/)
       end
     end
 
@@ -49,15 +50,15 @@ describe Spree::Admin::MenuItemsController do
       it 'with HTML' do
         spree_post :create, menu_item: valid_item
         expect(flash[:success]).to eq(
-          Spree.t('navigator.admin.flash.success.create', name: valid_item[:name])
+          Spree.t(:create, name: valid_item[:name], scope: scope)
         )
         expect(response).to redirect_to(index_path)
       end
 
       it 'with AJAX' do
-        spree_xhr_post :create, menu_item: valid_item_parent
+        spree_xhr_post :create, menu_item: valid_item_top
         expect(response.code).to eq '201'
-        expect(response.header['Content-Type']).to match /json/
+        expect(response.header['Content-Type']).to match(/json/)
       end
     end
   end
@@ -80,7 +81,7 @@ describe Spree::Admin::MenuItemsController do
         spree_xhr_post :update, id: menu_item.id, menu_item: invalid_item
         expect(response.body).to eq('{"name":["can\'t be blank"]}')
         expect(response.code).to eq '422'
-        expect(response.header['Content-Type']).to match /json/
+        expect(response.header['Content-Type']).to match(/json/)
       end
     end
 
@@ -88,7 +89,7 @@ describe Spree::Admin::MenuItemsController do
       it 'with HTML' do
         spree_post :update, id: menu_item.id, menu_item: valid_item
         expect(flash[:success]).to eq(
-          Spree.t('navigator.admin.flash.success.update', name: valid_item[:name])
+          Spree.t(:update, name: valid_item[:name], scope: scope)
         )
         expect(response).to redirect_to(index_path)
       end
@@ -96,15 +97,15 @@ describe Spree::Admin::MenuItemsController do
       it 'with AJAX' do
         spree_xhr_post :update, id: menu_item.id, menu_item: valid_item
         expect(response.code).to eq '201'
-        expect(response.header['Content-Type']).to match /json/
+        expect(response.header['Content-Type']).to match(/json/)
       end
 
       # jsTree passes `menu_tree` for top level item. Those get converted
       # to `nil` in `MenuItemsController.menu_item_params`
       it 'with AJAX and `menu_tree` as parent_id' do
-        spree_xhr_post :update, id: menu_item.id, menu_item: valid_item
+        spree_xhr_post :update, id: menu_item.id, menu_item: valid_item_top
         expect(response.code).to eq '201'
-        expect(response.header['Content-Type']).to match /json/
+        expect(response.header['Content-Type']).to match(/json/)
       end
     end
   end

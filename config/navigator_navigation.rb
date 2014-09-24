@@ -13,7 +13,4 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Turn on auto highlight feature
   navigation.auto_highlight = true
-
-  navigation.items do |primary|
-  end
 end
