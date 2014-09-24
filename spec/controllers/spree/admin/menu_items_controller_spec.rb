@@ -113,8 +113,8 @@ describe Spree::Admin::MenuItemsController do
   context '#destroy' do
     it 'deletes item' do
       spree_post :destroy, id: menu_item.id
-      expect(flash[:success]).to(
-        eq Spree.t('navigator.admin.flash.success.destroy')
+      expect(flash[:success]).to eq(
+        Spree.t(:destroy, name: menu_item[:name], scope: scope)
       )
       expect(response).to redirect_to(index_path)
     end

@@ -28,9 +28,6 @@ module Spree
         end
       end
 
-      def edit
-      end
-
       def update
         respond_to do |format|
           if @menu_item.update(menu_item_params)
@@ -47,11 +44,7 @@ module Spree
       def destroy
         @menu_item.destroy
         respond_to do |format|
-          format.html do
-            redirect_to admin_menu_items_path, flash: {
-              success: Spree.t('navigator.admin.flash.success.destroy')
-            }
-          end
+          format.html { submit_success_redirect(:destroy) }
           format.json { head :no_content }
         end
       end
@@ -100,11 +93,10 @@ module Spree
       end
 
       def organize_items
-        items = Spree::MenuItem.where(parent_id: menu_item_params[:parent_id])
-                      .where('position >= ?', menu_item_params[:position])
-                      .order(updated_at: :desc)
-                      .map(&:id)
-        items.each_with_index do |id, index|
+        Spree::MenuItem.where(parent_id: menu_item_params[:parent_id])
+          .order(updated_at: :desc)
+          .map(&:id)
+          .each_with_index do |id, index|
           Spree::MenuItem.find(id).update_attributes(position: index)
         end
       end

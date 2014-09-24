@@ -34,7 +34,7 @@ en:
           success:
             create: 'Menu item `%{name}` has been successfully created!'
             update: 'Menu item `%{name}` has been successfully updated!'
-            destroy: Menu item has been removed.
+            destroy: 'Menu item `%{name}` has been successfully removed!'
 
   activerecord:
     models:

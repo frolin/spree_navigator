@@ -1,8 +1,10 @@
 # Spree Navigator
 
-Customizable navigation menu for Spree. Sure you can overwrite the view file in your application to add your own menu items. But what fun would that be? Works well with multi-tenant sites or applications where overwriting the `views/spree/shared/_main_nav_bar.html.erb` file is not an option.
+Customizable navigation menu for Spree. Sure you can overwrite the view file in your application to add your own menu items. But what fun would that be?
 
-But... but... what happens when the menu isn't set? It defaults to `root_path` link with the translated `Home` text just like Spree does by default.
+Works well with [multi-tenant sites](https://github.com/groundctrl/shopping_mall) or applications where overwriting the `views/spree/shared/_main_nav_bar.html.erb` file is not an option.
+
+But... but... what happens when no menu items are set? It will default to the translated `Home` text with the `root_path` link just like Spree does by default.
 
 > NOTE: Still under development. Not ready for production
 
