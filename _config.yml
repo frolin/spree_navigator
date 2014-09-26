@@ -7,3 +7,8 @@ url: "http://dfreerksen.github.io/spree_navigator"
 
 # Build settings
 markdown: kramdown
+
+# SASS/SCSS
+sass:
+  sass_dir: _scss
+  style: :compressed
