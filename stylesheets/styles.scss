@@ -5,6 +5,8 @@
 
 @import "normalize";
 
+@import "fancybox";
+
 body {
   padding: 50px;
   font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -186,6 +188,11 @@ footer {
   float: left;
   position: fixed;
   bottom: 50px;
+}
+
+p a.fancybox {
+  float: left;
+  padding: 5px;
 }
 
 @media print, screen and (max-width: 960px) {
