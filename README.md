@@ -6,7 +6,7 @@ Works well with [multi-tenant sites](https://github.com/groundctrl/shopping_mall
 
 But... but... what happens when no menu items are set? It will default to the translated `Home` text with the `root_path` link just like Spree does by default.
 
-> NOTE: Still under development. Not ready for production
+> More information at http://dfreerksen.github.io/spree_navigator
 
 
 ## Installation
