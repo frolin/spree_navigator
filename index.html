@@ -1,6 +1,5 @@
 ---
 layout: default
-title:  Spree Navigator
 ---
 
 <h3>{{ site.title }}</h3>
@@ -12,46 +11,66 @@ title:  Spree Navigator
 
 <h3>Usage</h3>
 
-<p>{{ site.title }} assumes <code>views/spree/shared/_main_nav_bar.html.erb</code> has not been modified in anyway. This gem will use the existing <code>views/spree/shared/_main_nav_bar.html.erb</code> as it comes from Spree. By modifying this file, there is a chance the menu will not display.</p>
+<p>
+  {{ site.title }} assumes <code>views/spree/shared/_main_nav_bar.html.erb</code> has not been modified in anyway. This gem will use the existing <code>views/spree/shared/_main_nav_bar.html.erb</code> as it comes from Spree. By modifying this file, there is a chance the menu will not display.
+</p>
 
 <h4>Default Menu</h4>
 
-<p><a class="fancybox" href="{{ "images/no-items.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/no-items.png" | prepend: site.baseurl }}" border="0"></a> The default menu is the <code>Home</code> link. Of no menu items are specified, the menu defaults to the <code>Home</code> link; The same that is available in Spree by default.</p>
+<p>
+  <a class="fancybox left" href="{{ "images/no-items.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/no-items.png" | prepend: site.baseurl }}" border="0"></a> The default menu is the <code>Home</code> link. Of no menu items are specified, the menu defaults to the <code>Home</code> link; The same that is available in Spree by default.
+</p>
 
 <h4>Menu Item Listing</h4>
 
-<p><a class="fancybox" href="{{ "images/items-listed.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/items-listed.png" | prepend: site.baseurl }}" border="0"></a> After creating one more more menu items, they will immediatly start showing up on the frontend. You can organize menu items by dragging them around. You can even nest items inside other menu items.</p>
+<p>
+  <a class="fancybox right" href="{{ "images/items-listed.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/items-listed.png" | prepend: site.baseurl }}" border="0"></a> After creating one more more menu items, they will immediatly start showing up on the frontend. You can organize menu items by dragging them around. You can even nest items inside other menu items.
+</p>
 
-<p>Each menu item can have a custom HTML id applied to it. If one is not specified, it will default to <code>menu_item_123</code> where <code>123</code> is the primary key from the database.</p>
+<p>
+  Each menu item can have a custom HTML id applied to it. If one is not specified, it will default to <code>menu_item_123</code> where <code>123</code> is the primary key from the database.
+</p>
 
-<p>Each menu item can have custom HTML classes applied to it. All menu items already apply a class of <code>menu-item</code> to the <code>li</code>. If a custom classes is not specified, it will default to <code>menu-item-123</code> where <code>123</code> is the primary key from the database.</p>
+<p>
+  Each menu item can have custom HTML classes applied to it. All menu items already apply a class of <code>menu-item</code> to the <code>li</code>. If a custom classes is not specified, it will default to <code>menu-item-123</code> where <code>123</code> is the primary key from the database.
+</p>
 
 <h4>Menu Item Management</h4>
 
-<p><a class="fancybox" href="{{ "images/right-click.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/right-click.png" | prepend: site.baseurl }}" border="0"></a> At any time, you can right click on a menu item to open the management menu for that item. This menu allows you to quickly access the main management features fpr each menu item.</p>
+<p>
+  <a class="fancybox left" href="{{ "images/right-click.png" | prepend: site.baseurl }}" target="_blank"><img src="{{ "images/thumbnails/right-click.png" | prepend: site.baseurl }}" border="0"></a> At any time, you can right click on a menu item to open the management menu for that item. This menu allows you to quickly access the main management features fpr each menu item.
+</p>
 
 <h5>Add</h5>
 
-<p>Adding a menu item will add the new menu item as a child of the menu item that was selected. If the new meni item needs to be a top level menu item, you can either click <code>New Menu Item</code> in the top right corner or drag the new item to the correct position after it has been created.</p>
+<p>
+  Adding a menu item will add the new menu item as a child of the menu item that was selected. If the new meni item needs to be a top level menu item, you can either click <code>New Menu Item</code> in the top right corner or drag the new item to the correct position after it has been created.
+</p>
 
 <h5>Rename</h5>
 
-<p>Renaming a menu item will not redirect to the edit page. Renaming a menu item is does inline.</p>
+<p>
+  Renaming a menu item will not redirect to the edit page. Renaming a menu item is does inline.
+</p>
 
 <h5>Remove</h5>
 
-<p>Since this is a destructive action, selecting <code>Remove</code> will prompt you to confirm you intension to remove that menu item. Removing a menu item will also remove all child and nested child items as well.</p>
+<p>
+  Since this is a destructive action, selecting <code>Remove</code> will prompt you to confirm you intension to remove that menu item. Removing a menu item will also remove all child and nested child items as well.
+</p>
 
 <h5>Edit</h5>
 
-<p>Clicking on <code>Edit</code> will redirect to the edit page for that item.</p>
+<p>
+  Clicking on <code>Edit</code> will redirect to the edit page for that item.
+</p>
 
 
 <h3>Installation</h3>
 
 <p>Add this line to your Spree application's Gemfile:</p>
 
-<pre><code>gem '{{ site.data.github.repo }}', github: '{{ site.data.github.username }}/{{ site.data.github.repo }}'
+<pre><code>gem '{{ site.data.github.repo }}', github: '{{ site.data.github.path }}'
 </code></pre>
 
 <p>Run the bundle command to install it:</p>
@@ -81,8 +100,7 @@ title:  Spree Navigator
 <h3>Contributing</h3>
 
 <ol>
-  <li>Fork it ( <a href="https://github.com/{{ site.data.github.username }}/{{ site.data.github.repo }}/fork">https://github.com/{{ site.data.github.username }}
-    /{{ site.data.github.repo }}/fork</a> )</li>
+  <li>Fork it ( <a href="https://github.com/{{ site.data.github.path }}/fork">https://github.com/{{ site.data.github.path }}/fork</a> )</li>
   <li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
   <li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
   <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
@@ -119,4 +137,4 @@ title:  Spree Navigator
 
 <h3>Support</h3>
 
-<p>Having trouble? Check out the <a href="https://github.com/{{ site.data.github.username }}/{{ site.data.github.repo }}/wiki">wiki</a> or view current <a href="https://github.com/{{ site.data.github.username }}/{{ site.data.github.repo }}/issues">issues</a>.</p>
+<p>Having trouble? Check out the <a href="https://github.com/{{ site.data.github.path }}/wiki">wiki</a> or view current <a href="https://github.com/{{ site.data.github.path }}/issues">issues</a>.</p>
